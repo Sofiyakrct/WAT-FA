@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LearnHub Pro</title>
+
+<style>
+:root {
+  --primary: #6366f1;
+  --secondary: #8b5cf6;
+  --bg: #f4f6fb;
+  --card-bg: #ffffff;
+  --text: #1f2937;
+}
+
+body.dark {
+  --bg: #0f172a;
+  --card-bg: #1e293b;
+  --text: #f1f5f9;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: 0.3s;
+}
+
+/* HEADER */
+header {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+nav a:hover { opacity: 0.8; }
+
+.toggle-btn {
+  background: white;
+  color: var(--primary);
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* CONTAINER */
+.container { padding: 40px; }
+.page { display: none; animation: fadeIn 0.4s ease; }
+.active { display: block; }
+
+@keyframes fadeIn {
+  from {opacity:0; transform: translateY(10px);}
+  to {opacity:1; transform: translateY(0);}
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-radius: 15px;
+  padding: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 50%;
+  transition: transform 0.1s ease;
+}
+
+/* SCHOOL BOY */
+.boy {
+  width: 200px;
+  height: 250px;
+  background: #2563eb;
+  border-radius: 25px;
+  position: relative;
+  transition: transform 0.1s ease;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.face {
+  width: 120px;
+  height: 120px;
+  background: #fcd34d;
+  border-radius: 50%;
+  position: absolute;
+  top: 30px;
+  left: 40px;
+}
+
+.eye {
+  width: 30px;
+  height: 30px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 40px;
+  overflow: hidden;
+}
+
+.left-eye { left: 25px; }
+.right-eye { right: 25px; }
+
+.pupil {
+  width: 12px;
+  height: 12px;
+  background: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  transition: 0.05s;
+}
+
+/* COURSE GRID */
+.course-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  width: 250px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card button {
+  padding: 8px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.preview-btn { background: var(--primary); color: white; }
+.enroll-btn { background: #22c55e; color: white; }
+
+.rating { color: gold; }
+
+/* INSTRUCTORS */
+.instructor-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.instructor-card {
+  background: var(--card-bg);
+  padding: 25px;
+  border-radius: 15px;
+  width: 220px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.instructor-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 15px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  color: white;
+  font-weight: bold;
+}
+
+/* FAQ */
+.faq-item {
+  background: var(--card-bg);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.faq-question {
+  padding: 15px;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.4s ease;
+  padding: 0 15px;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 200px;
+  padding: 15px;
+}
+
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background: var(--card-bg);
+  padding: 25px;
+  border-radius: 12px;
+  width: 400px;
+  animation: fadeIn 0.3s ease;
+}
+
+.close { float:right; cursor:pointer; font-weight:bold; }
+
+input, select, textarea {
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>🚀 LearnHub Pro</h2>
+  <nav>
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="showPage('courses')">Courses</a>
+    <a onclick="showPage('instructors')">Instructors</a>
+    <a onclick="showPage('faq')">FAQ</a>
+    <a onclick="showPage('contact')">Contact</a>
+  </nav>
+  <div class="toggle-btn" onclick="toggleDark()">🌙 Dark</div>
+</header>
+
+<div class="container">
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <div class="hero" id="hero">
+    <div class="hero-content">
+      <h1>Upgrade Your Skills Today</h1>
+      <p>Learn modern technologies with interactive courses.</p>
+      <h3>Students Enrolled: <span id="counter">0</span></h3>
+    </div>
+
+    <div class="boy">
+      <div class="face">
+        <div class="eye left-eye"><div class="pupil"></div></div>
+        <div class="eye right-eye"><div class="pupil"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COURSES -->
+<div id="courses" class="page">
+  <h1>Courses</h1>
+  <input type="text" id="searchInput" placeholder="Search courses...">
+  <select id="filterSelect">
+    <option value="all">All</option>
+    <option value="Web">Web</option>
+    <option value="Data">Data</option>
+    <option value="AI">AI</option>
+  </select>
+  <div id="courseContainer" class="course-grid"></div>
+</div>
+
+<!-- INSTRUCTORS -->
+<div id="instructors" class="page">
+  <h1>Meet Our Instructors</h1>
+  <div class="instructor-grid">
+    <div class="instructor-card">
+      <div class="avatar">D</div>
+      <h3>Deena</h3>
+      <p>Web Development Expert</p>
+    </div>
+    <div class="instructor-card">
+      <div class="avatar">R</div>
+      <h3>Haritha</h3>
+      <p>UI/UX Specialist</p>
+    </div>
+    <div class="instructor-card">
+      <div class="avatar">G</div>
+      <h3>Geetha</h3>
+      <p>Data Analytics Instructor</p>
+    </div>
+    <div class="instructor-card">
+      <div class="avatar">S</div>
+      <h3>Sofiya</h3>
+      <p>AI & Machine Learning Mentor</p>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div id="faq" class="page">
+  <h1>FAQ</h1>
+  <div class="faq-item">
+    <div class="faq-question">How do I enroll?</div>
+    <div class="faq-answer">Click enroll button to join instantly.</div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="page">
+  <h1>Contact</h1>
+  <input placeholder="Name">
+  <input placeholder="Email">
+  <textarea placeholder="Message"></textarea>
+  <button class="preview-btn">Send</button>
+</div>
+
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">×</span>
+    <h3 id="modalTitle"></h3>
+    <p id="modalDescription"></p>
+  </div>
+</div>
+
+<script>
+const courses = [
+  { id:1, title:"HTML & CSS", category:"Web", description:"Learn web basics.", rating:"⭐⭐⭐⭐" },
+  { id:2, title:"JavaScript", category:"Web", description:"Master JS fundamentals.", rating:"⭐⭐⭐⭐⭐" },
+  { id:3, title:"Data Analysis", category:"Data", description:"Analyze data efficiently.", rating:"⭐⭐⭐⭐" },
+  { id:4, title:"Machine Learning", category:"AI", description:"Intro to ML concepts.", rating:"⭐⭐⭐⭐⭐" }
+];
+
+let enrolledCount = 0;
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function renderCourses(filterText="", category="all"){
+  const container=document.getElementById("courseContainer");
+  container.innerHTML="";
+  courses.filter(c =>
+    c.title.toLowerCase().includes(filterText.toLowerCase()) &&
+    (category==="all"||c.category===category)
+  ).forEach(course=>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
+      <h3>${course.title}</h3>
+      <div class="rating">${course.rating}</div>
+      <p>${course.category}</p>
+      <button class="preview-btn" onclick="openModal('${course.title}','${course.description}')">Preview</button>
+      <button class="enroll-btn" onclick="enroll()">Enroll</button>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function enroll(){
+  enrolledCount++;
+  document.getElementById("counter").innerText=enrolledCount;
+}
+
+function openModal(title,desc){
+  document.getElementById("modalTitle").innerText=title;
+  document.getElementById("modalDescription").innerText=desc;
+  document.getElementById("modal").style.display="flex";
+}
+
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
+
+function toggleDark(){
+  document.body.classList.toggle("dark");
+}
+
+const pupils=document.querySelectorAll(".pupil");
+const heroContent=document.querySelector(".hero-content");
+const boy=document.querySelector(".boy");
+
+document.addEventListener("mousemove",(e)=>{
+  const {clientX,clientY}=e;
+  const {innerWidth,innerHeight}=window;
+  const moveX=(clientX-innerWidth/2)/40;
+  const moveY=(clientY-innerHeight/2)/40;
+  heroContent.style.transform=`translate(${moveX}px,${moveY}px)`;
+  boy.style.transform=`translate(${-moveX}px,${-moveY}px)`;
+  pupils.forEach(pupil=>{
+    const eye=pupil.parentElement.getBoundingClientRect();
+    const eyeX=eye.left+eye.width/2;
+    const eyeY=eye.top+eye.height/2;
+    const angle=Math.atan2(clientY-eyeY,clientX-eyeX);
+    const radius=6;
+    pupil.style.transform=`translate(${Math.cos(angle)*radius}px,${Math.sin(angle)*radius}px)`;
+  });
+});
+
+document.getElementById("searchInput").addEventListener("input",e=>{
+  renderCourses(e.target.value,filterSelect.value);
+});
+document.getElementById("filterSelect").addEventListener("change",e=>{
+  renderCourses(searchInput.value,e.target.value);
+});
+
+document.querySelectorAll(".faq-question").forEach(q=>{
+  q.addEventListener("click",()=>{
+    q.parentElement.classList.toggle("active");
+  });
+});
+
+renderCourses();
+</script>
+
+</body>
+</html>
